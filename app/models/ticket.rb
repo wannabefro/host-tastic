@@ -1,8 +1,11 @@
 class Ticket < ActiveRecord::Base
   belongs_to :department
   belongs_to :assigned_staff, class_name: 'User', foreign_key: 'assigned_staff_id'
+  has_many :histories
+  has_many :responses
 
   before_validation :generate_reference, on: :create
+  after_save :update_history
 
   enum status: { waiting_for_staff_response: 0, waiting_for_customer: 1, on_hold: 2, 
                  cancelled: 3, completed: 4 }
@@ -25,6 +28,10 @@ class Ticket < ActiveRecord::Base
   end
 
   private
+
+  def update_history
+    CreateHistory.new(self).call
+  end
 
   def generate_reference
     hex_numbers = SecureRandom.hex(3).upcase.scan(/../)

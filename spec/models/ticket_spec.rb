@@ -19,4 +19,12 @@ RSpec.describe Ticket, :type => :model do
       expect(ticket.reload.reference).to_not be_nil
     end
   end
+
+  context 'history' do
+    it 'should create a history after creation' do
+      ticket = FactoryGirl.create(:ticket)
+      expect(ticket.histories.count).to eql(1)
+      expect(ticket.histories.first.notes).to eql("Ticket created at #{ticket.created_at}")
+    end
+  end
 end

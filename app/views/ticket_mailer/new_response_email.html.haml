@@ -1,0 +1,15 @@
+%p
+  Hi
+  = @ticket.name
+
+%p
+  = @response.staff.name
+  just left a new response on your ticket, reference no: 
+  = @ticket.reference
+
+%p= @response.body
+%p
+  To see your ticket click
+  = link_to 'here', ticket_path(@ticket)
+
+%p The Ticket Team

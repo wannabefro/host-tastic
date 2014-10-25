@@ -1,0 +1,28 @@
+%h1= @ticket.subject
+- if @ticket.assigned_staff
+  %h4 
+    Assigned to
+    = @ticket.assigned_staff.name
+
+- if current_user
+  = render 'staff_controls'
+
+%h3 History
+%ul
+  - @ticket.histories.each do |h|
+    %li= h.notes
+
+%h3 Responses
+
+= simple_form_for [@ticket, @response] do |f|
+  = f.input :body, label: 'Response'
+  = f.submit 'Reply'
+
+- @ticket.responses.persisted.each do |r|
+  %p
+    = r.created_at.strftime('%b %e, %l:%M %p')
+    %br
+    = r.body
+    %br
+    - if r.staff
+      %cite= r.staff.name
