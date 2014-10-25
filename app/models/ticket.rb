@@ -14,8 +14,14 @@ class Ticket < ActiveRecord::Base
     :status,
     :department
 
-  def to_params
+  def to_param
     reference
+  end
+
+  class << self
+    def search(query)
+      where('subject ILIKE ?', "%#{query}%")
+    end
   end
 
   private

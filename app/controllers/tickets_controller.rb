@@ -2,9 +2,23 @@ class TicketsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
 
   def index
-    status = get_status
-    @tickets = Ticket.where(status: status)
-    @ticket_type = status
+    if params[:q]
+      ticket = Ticket.find_by(reference: params[:q][:query])
+      if ticket
+        redirect_to ticket_path(ticket)
+      else
+        @tickets = Ticket.search(params[:q][:query])
+        @query = params[:q][:query]
+      end
+    else
+      status = get_status
+      @tickets = Ticket.where(status: status)
+      @query = status
+    end
+  end
+
+  def show
+
   end
 
   private

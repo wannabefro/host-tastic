@@ -28,4 +28,20 @@ feature 'staff member views tickets' do
     visit tickets_path
     expect(current_path).to eql(new_user_session_path)
   end
+
+  scenario 'searching by reference number should take a user to the ticket' do
+    signin(user)
+    visit tickets_path
+    fill_in 'Search', with: on_hold_ticket.reference
+    click_on 'Search'
+    expect(current_path).to eql(ticket_path(on_hold_ticket))
+  end
+
+  scenario 'searching by words should return tickets with them in the subject' do
+    signin(user)
+    visit tickets_path
+    fill_in 'Search', with: closed_ticket.subject.split(' ')[0]
+    click_on 'Search'
+    expect(page).to have_content(closed_ticket.subject)
+  end
 end
