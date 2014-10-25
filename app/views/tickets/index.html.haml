@@ -1,0 +1,23 @@
+= simple_form_for :ticket,
+  url: url_for(action: 'index', controller: 'tickets'),
+  method: 'get' do |f|
+  = f.input :status, as: :select, 
+    collection: Ticket.statuses.keys.map {|k| [k.humanize, Ticket.statuses[k]]},
+    label: 'Ticket Status', 
+    name: 'type'
+  = f.submit 'Update'
+
+%h1= @ticket_type.humanize
+
+%table
+  %tr
+    %th Subject
+    %th Name
+    %th Status
+    %th View
+  - @tickets.each do |t|
+    %tr
+      %td= t.subject
+      %td= t.name
+      %td= t.status.humanize
+      %td= link_to 'Show', ticket_path(t)

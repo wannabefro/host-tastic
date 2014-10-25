@@ -4,7 +4,8 @@ class Ticket < ActiveRecord::Base
 
   before_validation :generate_reference, on: :create
 
-  enum status: [ :waiting_for_staff_response, :waiting_for_customer, :on_hold, :cancelled, :completed ]
+  enum status: { waiting_for_staff_response: 0, waiting_for_customer: 1, on_hold: 2, 
+                 cancelled: 3, completed: 4 }
 
   validates_presence_of :name,
     :email,
