@@ -27,3 +27,5 @@
       %td= t.name
       %td= t.status.humanize
       %td= link_to 'Show', ticket_path(t)
+
+= paginate @tickets

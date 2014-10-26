@@ -7,12 +7,12 @@ class TicketsController < ApplicationController
       if ticket
         redirect_to ticket_path(ticket)
       else
-        @tickets = Ticket.search(params[:q][:query])
+        @tickets = Ticket.search(params[:q][:query]).page(params[:page]).per(10)
         @query = params[:q][:query]
       end
     else
       status = get_status
-      @tickets = Ticket.where(status: status)
+      @tickets = Ticket.where(status: status).order(:created_at).page(params[:page]).per(10)
       @query = Ticket.statuses.key(status.to_i)
     end
   end

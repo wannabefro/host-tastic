@@ -15,11 +15,26 @@
   - @ticket.histories.each do |h|
     %li= h.notes
 
+%h3 Ticket details
+
+%p
+  Name:
+  = @ticket.name
+%p
+  Email:
+  = @ticket.email
+%p
+  Department:
+  = @ticket.department.name
+%p
+  Body:
+  = @ticket.body
+
 %h3 Responses
 
 = simple_form_for [@ticket, @response] do |f|
   = f.input :body, label: 'Response'
-  = f.submit 'Reply'
+  = f.submit 'Reply', class: 'button tiny'
 
 - @ticket.responses.persisted.each do |r|
   .testimonial
