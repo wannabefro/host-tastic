@@ -8,7 +8,7 @@ describe Api::V1::TicketsController do
       ticket: {
         name: ticket.name,
         email: ticket.email,
-        department_id: ticket.department.id,
+        department_name: ticket.department.name,
         body: ticket.body,
         subject: ticket.subject
       }
