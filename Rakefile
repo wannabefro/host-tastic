@@ -15,3 +15,7 @@ task :run do
     sleep 1
   end
 end
+
+task :test do
+  system("cd management && rspec spec")
+end
