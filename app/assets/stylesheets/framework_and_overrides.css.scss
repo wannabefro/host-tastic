@@ -1,5 +1,5 @@
 // import the CSS framework
-@import "foundation";
+@import "foundation/app";
 
 // override for the 'Home' navigation link
 .top-bar .name {
@@ -40,7 +40,6 @@
 // to make views framework-neutral
 main {
   @include twelve-columns;
-  background-color: #eee;
   }
 section {
   @extend .row;
