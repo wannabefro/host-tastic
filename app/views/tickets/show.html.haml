@@ -1,4 +1,7 @@
 %h1= @ticket.subject
+%h4
+  Current State:
+  @ticket.status.humanize
 - if @ticket.assigned_staff
   %h4 
     Assigned to

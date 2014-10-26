@@ -34,7 +34,7 @@ class TicketsController < ApplicationController
   private
 
   def ticket_params
-    params.require(:ticket).permit(:assigned_staff_id)
+    params.require(:ticket).permit(:assigned_staff_id, :status)
   end
 
   def get_status

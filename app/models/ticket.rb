@@ -7,6 +7,8 @@ class Ticket < ActiveRecord::Base
   before_validation :generate_reference, on: :create
   after_save :update_history
 
+  ACTIONABLE_STATES = {on_hold: 'Hold', cancelled: 'Cancel', completed: 'Complete'}
+
   enum status: { waiting_for_staff_response: 0, waiting_for_customer: 1, on_hold: 2, 
                  cancelled: 3, completed: 4 }
 
@@ -19,6 +21,10 @@ class Ticket < ActiveRecord::Base
 
   def to_param
     reference
+  end
+
+  def changable_states
+    ACTIONABLE_STATES.select{|k, v| k != self.status.to_sym}
   end
 
   class << self

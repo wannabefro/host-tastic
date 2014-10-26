@@ -5,7 +5,7 @@ feature 'viewing a ticket' do
   let(:ticket) { FactoryGirl.create(:ticket) }
   scenario 'it should show the history for the ticket' do
     visit ticket_path(ticket)
-    expect(page).to have_content("Ticket created at #{ticket.created_at}")
+    expect(page).to have_content("Ticket created at #{ticket.created_at.strftime('%b %e, %l:%M %p')}")
   end
 
   context 'assigning ticket' do
@@ -51,6 +51,17 @@ feature 'viewing a ticket' do
       expect(ticket.reload.status).to eql('waiting_for_staff_response')
       expect(page).to have_content("#{ticket.name} updated their ticket")
       expect(ActionMailer::Base.deliveries.count).to eql(previous_email_count)
+    end
+  end
+
+  context 'changing status' do
+    let(:ticket) { FactoryGirl.create(:ticket, assigned_staff: user) }
+    scenario 'staff member completes ticket' do
+      signin(user)
+      visit ticket_path(ticket)
+      click_on 'Cancel Ticket'
+      expect(ticket.reload.status).to eql('cancelled')
+      expect(page).to_not have_content('Cancel Ticket')
     end
   end
 end
