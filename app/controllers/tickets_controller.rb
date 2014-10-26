@@ -13,7 +13,7 @@ class TicketsController < ApplicationController
     else
       status = get_status
       @tickets = Ticket.where(status: status)
-      @query = status
+      @query = Ticket.statuses.key(status.to_i)
     end
   end
 

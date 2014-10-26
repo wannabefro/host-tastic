@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :department do
-    sequence(:name) { |n| "Department #{n}" }
+    name { Faker::Commerce.department }
   end
 
 end

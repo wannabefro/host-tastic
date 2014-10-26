@@ -22,10 +22,12 @@
   = f.submit 'Reply'
 
 - @ticket.responses.persisted.each do |r|
-  %p
-    = r.created_at.strftime('%b %e, %l:%M %p')
-    %br
-    = r.body
-    %br
-    - if r.staff
-      %cite= r.staff.name
+  .testimonial
+    .quote
+      %p= r.body
+    .staff
+      - if r.staff
+        %p= r.staff.name
+      - else
+        %p= @ticket.name
+      %p= r.created_at.strftime('%b %e, %l:%M %p')

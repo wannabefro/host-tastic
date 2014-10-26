@@ -2,7 +2,7 @@
   url: url_for(action: 'index', controller: 'tickets'),
   method: 'get' do |f|
   = f.input :query, label: 'Search'
-  = f.submit 'Search'
+  = f.submit 'Search', class: 'button tiny'
 
 = simple_form_for :ticket,
   url: url_for(action: 'index', controller: 'tickets'),
@@ -11,7 +11,7 @@
     collection: Ticket.statuses.keys.map {|k| [k.humanize, Ticket.statuses[k]]},
     label: 'Ticket Status', 
     name: 'type'
-  = f.submit 'Update'
+  = f.submit 'Update', class: 'button tiny'
 
 %h1= @query.humanize
 

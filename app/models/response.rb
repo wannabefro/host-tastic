@@ -1,4 +1,5 @@
 class Response < ActiveRecord::Base
+  default_scope -> { order('created_at DESC') }
   scope :persisted, -> { where 'id IS NOT NULL' }
   belongs_to :ticket
   belongs_to :staff, class_name: 'User', foreign_key: 'staff_id'

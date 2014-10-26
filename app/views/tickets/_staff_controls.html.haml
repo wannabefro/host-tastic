@@ -1,8 +1,8 @@
 = simple_form_for @ticket do |f|
   = f.association :assigned_staff, label: 'Assign to:'
-  = f.submit 'Assign'
+  = f.submit 'Assign', class: 'button tiny'
 
 %ul.button-group
   - @ticket.changable_states.each do |k, v|
     %li
-      = link_to "#{v} Ticket", ticket_path(@ticket, ticket: {status: k}), method: 'PUT', class: 'button'
+      = link_to "#{v} Ticket", ticket_path(@ticket, ticket: {status: k}), method: 'PUT', class: 'button tiny'
