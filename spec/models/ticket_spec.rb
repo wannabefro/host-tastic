@@ -7,7 +7,6 @@ RSpec.describe Ticket, :type => :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:email) }
   it { should validate_presence_of(:body) }
-  it { should validate_presence_of(:reference) }
   it { should validate_presence_of(:status) }
   it { should validate_presence_of(:department) }
 
@@ -24,7 +23,7 @@ RSpec.describe Ticket, :type => :model do
     it 'should create a history after creation' do
       ticket = FactoryGirl.create(:ticket)
       expect(ticket.histories.count).to eql(1)
-      expect(ticket.histories.first.notes).to eql("Ticket created at #{ticket.created_at}")
+      expect(ticket.histories.first.notes).to eql("Ticket created at #{ticket.created_at.strftime('%b %e, %l:%M %p')}")
     end
   end
 end
